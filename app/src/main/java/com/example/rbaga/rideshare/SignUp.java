@@ -58,15 +58,22 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.backButton:
-                startActivity(new Intent(this, MainMenu.class));
+                startActivity(new Intent(this, LogIn.class));
+                finish();
                 break;
         }
 
     }
 
+    //includes the following data validation:
+    //required fields entered?
+    //correct length fields?
+    //correct type entry?
+    //passwords match?
     private void registerUser() {
         String email = emailText.getText().toString().trim();
         String password = passwordText.getText().toString().trim();
+        String confirmPassword = confirmPasswordText.getText().toString().trim();
 
         if(email.isEmpty()) {
             emailText.setError("Email is required");
@@ -92,6 +99,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
+        if (!password.equals(confirmPassword)) {
+            confirmPasswordText.setError("Passwords do not match");
+            confirmPasswordText.requestFocus();
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -100,6 +113,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "User Registration Successful", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
                 else {
@@ -107,6 +121,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
+
 
     }
 
