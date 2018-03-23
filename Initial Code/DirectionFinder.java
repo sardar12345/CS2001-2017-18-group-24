@@ -5,4 +5,11 @@ public class DirectionFinder {
     private String origin;//where the user wants the start point of the journey
     private String destination;// the destination the user inputs on the map screen
 
-}
+    public DirectionFinder(DirectionFinderListener listener, String origin, String destination)
+    {
+        this.listener = listener;
+        this.origin = origin;
+        this.destination = destination;
+    }
+
+
