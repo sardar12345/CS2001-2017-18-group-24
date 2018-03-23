@@ -6,4 +6,9 @@
     <string name="password_textinput">Password</string>
     <string name="email_address_hint">Email Address</string>
     <string name="password_hint">Password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back">Back</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
