@@ -3,6 +3,6 @@ public class DirectionFinder {
     private static final String GOOGLE_API_KEY = "AIzaSyDnwLF2-WfK8cVZt9OoDYJ9Y8kspXhEHfI";
     private DirectionFinderListener listener; 
     private String origin;
-    private String destination;
+    private String destination;// the destination the user inputs on the map screen
 
 }
