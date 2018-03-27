@@ -6,12 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.text.TextUtils;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.android.gms.tasks.OnCompleteListener;
+
 
 import com.example.rbaga.rideshare.R;
 
@@ -38,12 +44,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
 
         findViewById(R.id.signUpButton).setOnClickListener(this);
+        findViewById(R.id.logInButton).setOnClickListener(this);
 
-        textEmail = findViewById(R.id.textEmail);
-        textPassword = findViewById(R.id.textPassword);
-
-        email = textEmail.getText().toString();
-        password = textPassword.getText().toString();
+        textEmail = findViewById(R.id.emailLoginText);
+        textPassword = findViewById(R.id.passwordLoginText);
 
     }
 
@@ -54,13 +58,45 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             case R.id.signUpButton:
                 startActivity(new Intent(this, SignUp.class));
                 break;
+
+            case R.id.logInButton:
+                email = textEmail.getText().toString();
+                password = textPassword.getText().toString();
+
+                logIn(email, password);
+                break;
         }
 
     }
 
     private void logIn(String email, String password) {
 
+        //validate the login details
+        if (!validateLogIn()) {
+            return;
+        }
 
+        //start sign in
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //log in success
+                            Toast.makeText(LogIn.this, "Log In successful.",
+                                    Toast.LENGTH_SHORT).show();
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //start activity MainMenu
+
+                        } else {
+                            // If sign in fails, display a message to the user
+                            Toast.makeText(LogIn.this, "Log In failed - please check your credentials and internet connection.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
     }
 
     public boolean validateLogIn() {
