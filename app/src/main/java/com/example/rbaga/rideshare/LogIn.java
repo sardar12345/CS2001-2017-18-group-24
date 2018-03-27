@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import com.example.rbaga.rideshare.R;
 
@@ -11,7 +14,12 @@ import com.example.rbaga.rideshare.R;
  * Created by Chris.
  */
 
+
+
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
+
+    //declare Firebase mAuth
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
