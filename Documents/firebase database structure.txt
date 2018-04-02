@@ -1,0 +1,131 @@
+The following is the NoSQL/Firebase database structure for our project. 
+There are a few differences between this design and the relational database design that make this design a bit nicer.
+This is not quite a direct translation from the relational model, but an overall improvement in design.
+
+Notes:
+	- no "Journey History": all data will be pulled straight from "journeys" when "completed" value is set to true
+
+	- added "pickups" to store pickup locations of passengers for each journey. This is not nested in "journeys" 
+	  because we want to keep the data shallow allowing quicker referencing (a Firebase nuance/advantage for read data speed)
+
+	- "first_name" and "last_name" condensed into "full_name"
+
+	- added "username" field: this can be used for adding friends by username, which is nicer than email
+
+	- "user1", "user2" etc.. will be a Firebase generated userID after authenticated account creation
+	  Example: '-JglJnGDXcqLq6m844pZ'
+
+Data types:
+	--users--
+	"user1": userID
+	username: string
+	email: string
+	full_name: string
+	journeys: boolean
+
+	--journeys--
+	"journey1": journeyID
+	journey_name: string
+	no_of_users: integer
+	driver: userID
+	meeting_address: string
+	destination_address: string
+	date: string
+	time: string
+	completed: boolean
+	total_cost: float
+	distance_miles: float 
+	members: userID
+
+	--pickups--
+	"journey1": journeyID
+	"user1": userID
+	pickup_address: string
+
+	--friendships--
+	"user1": userID
+	"anotherUserID": boolean 	--> this is a link between two userIDs. If a link is present then the users are friends.
+
+
+--The Firebase Rideshare Database Model--
+
+{
+  users: {
+    user1: {
+        username: "chris",
+	email: "1614973@brunel.ac.uk",
+        full_name: "Christopher Llewellyn",
+        journeys: {
+            journey1: true,
+            journey3: true
+        }
+    },
+    user2: ...,
+    user3: ...
+  }
+
+  journeys: {
+     journey1 {
+        journey_name: "To university",
+        no_of_users: 2,
+	driver: user1,
+	meeting_address: "123 Example Street",
+        destination_address: "Brunel University",
+	date: "26/5/2018",
+	time: "10:00",
+	completed: true,
+	total_cost: 9.00,
+	cost_per_person: 4.50
+	distance_miles: 21.00
+        members: {
+            user1: true,
+            user3: true
+        }
+      },
+     journey2 {
+        journey_name: "Beach trip",
+        no_of_users: 1,
+	driver: user2,
+	meeting_address: "123 Example Street",
+        destination_address: "Beach Front",
+	date: "4/6/2018",
+	time: "10:00",
+	completed: false,
+	total_cost: 25.00
+	cost_per_person: 25.00
+	distance_miles: 21.00
+        members: {
+            user2: true
+        }
+      }
+   }
+  
+  pickups {
+     journey1 {
+	user1: { 
+	   pickup_address: null
+	}
+        user3: {
+	   pickup_address: "12 Priory Road"
+	}
+     },
+     journey2: ...
+   }
+	
+
+  friendships: {
+     user1: {
+        user2: true,
+        user3: true
+     },
+     user2: {
+        user1: true
+     },
+     user3: {
+        user1: true
+     }
+   }
+
+}
+
+--END MODEL--
