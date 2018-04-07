@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1062314245646",
+    "firebase_url": "https://rideshare-d36c3.firebaseio.com",
+    "project_id": "rideshare-d36c3",
+    "storage_bucket": "rideshare-d36c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062314245646:android:a517e3a43f333a27",
+        "android_client_info": {
+          "package_name": "com.example.rbaga.rideshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062314245646-ueop7plsvs7af0mmm5ibmht51cb4a2rs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rbaga.rideshare",
+            "certificate_hash": "b71fa71021ccd7d9cd5a2086602c364817a51edf"
+          }
+        },
+        {
+          "client_id": "1062314245646-hug07e0vruq4bt92j9k5k3gse8hq92qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAafN20k-0Xuhs1cAiUi6JX7SHhfNSwAFg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062314245646-hug07e0vruq4bt92j9k5k3gse8hq92qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
