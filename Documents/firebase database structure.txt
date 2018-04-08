@@ -10,15 +10,15 @@ Notes:
 
 	- "first_name" and "last_name" condensed into "full_name"
 
-	- added "username" field: this can be used for adding friends by username, which is nicer than email
-
-	- "user1", "user2" etc.. will be a Firebase generated userID after authenticated account creation
+	- "user1", "user2" etc.. will be a Firebase generated userID string after authenticated account creation
 	  Example: '-JglJnGDXcqLq6m844pZ'
+	  
+	- removed "username" field. Served no purpose other than to add friends, which can be done via email. Emails are also 
+	  guaranteed to be unique.
 
 Data types:
 	--users--
 	"user1": userID
-	username: string
 	email: string
 	name: string
 	journeys: boolean
@@ -52,7 +52,6 @@ Data types:
 {
   users: {
     user1: {
-        username: "chris",
 	email: "1614973@brunel.ac.uk",
         name: "Christopher Llewellyn",
         journeys: {
