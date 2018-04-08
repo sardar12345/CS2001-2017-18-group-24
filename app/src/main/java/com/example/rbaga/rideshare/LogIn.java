@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
-    //declare Firebase mAuth
     private FirebaseAuth mAuth;
     private EditText textEmail;
     private EditText textPassword;
