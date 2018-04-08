@@ -54,7 +54,7 @@ Data types:
     user1: {
         username: "chris",
 	email: "1614973@brunel.ac.uk",
-        full_name: "Christopher Llewellyn",
+        name: "Christopher Llewellyn",
         journeys: {
             journey1: true,
             journey3: true
