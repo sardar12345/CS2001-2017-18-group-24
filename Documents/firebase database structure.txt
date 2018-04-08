@@ -20,7 +20,7 @@ Data types:
 	"user1": userID
 	username: string
 	email: string
-	full_name: string
+	name: string
 	journeys: boolean
 
 	--journeys--
