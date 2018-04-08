@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by Chris.
@@ -24,7 +26,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     //sign up widgets
     private EditText emailText;
-    private EditText usernameText;
+    private EditText nameText;
     private EditText passwordText;
     private EditText confirmPasswordText;
     private ProgressBar progressBar;
@@ -38,7 +40,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.sign_up);
 
         emailText = findViewById(R.id.textEmail);
-        usernameText = findViewById(R.id.textUsername);
+        nameText = findViewById(R.id.textName);
         passwordText = findViewById(R.id.textPassword);
         confirmPasswordText = findViewById(R.id.textConfirmPassword);
         progressBar = findViewById(R.id.progressBar);
@@ -56,7 +58,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         switch(view.getId()) {
             case R.id.signUp:
                 registerUser();
-
                 break;
 
             case R.id.backButton:
@@ -74,7 +75,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     //passwords match?
     private void registerUser() {
         final String email = emailText.getText().toString().trim();
-        final String username = usernameText.getText().toString().trim();
+        final String name = nameText.getText().toString().trim();
         final String password = passwordText.getText().toString().trim();
         String confirmPassword = confirmPasswordText.getText().toString().trim();
 
@@ -84,15 +85,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
-        if(username.isEmpty()) {
-            usernameText.setError("Username is required");
-            usernameText.requestFocus();
+        if(name.isEmpty()) {
+            nameText.setError("Name is required");
+            nameText.requestFocus();
             return;
         }
 
-        if(username.length() > 25) {
-            usernameText.setError("Maximum username length is 25");
-            usernameText.requestFocus();
+        if(name.length() > 35) {
+            nameText.setError("Maximum name length is 35");
+            nameText.requestFocus();
             return;
         }
 
@@ -122,20 +123,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                progressBar.setVisibility(View.GONE);
-                if(task.isSuccessful()) {
-                    AuthUser(email, password);
-                    AddUserToDatabase(username, email);
-                }
-
-                else {
-                    Toast.makeText(getApplicationContext(), "An error occurred", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        CreateUser(email, password, name);
 
     }
 
@@ -145,15 +133,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //authentication success, display toast
-                            Toast.makeText(getApplicationContext(), "User Registration Successful", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else {
-                            // If authentication fails, display a toast to the user
-                            Toast.makeText(SignUp.this, "Sign up authentication failed",
-                                    Toast.LENGTH_LONG).show();
+                        if (!task.isSuccessful()) {
+                            //if authentication fails here, display toast
+                            Toast.makeText(getApplicationContext(), "Sign up authentication failed", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -161,10 +143,57 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void AddUserToDatabase(String username, String email) {
+    private void AddUserToDatabase(String name, String email) {
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserID = currentFirebaseUser.getUid();
+
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = database.getReference();
+
+        databaseReference.child("users").child(currentUserID).setValue(user)
+                .addOnCompleteListener(SignUp.this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //display a toast based on whether or not the user was added to the database successfully
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "User registration successful", Toast.LENGTH_LONG).show();
+                            StartMainMenu();
+                            finish();
+                        }
+
+                        else {
+                            Toast.makeText(getApplicationContext(), "Failed to add user to database", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
     }
 
+    private void StartMainMenu() {
+        startActivity(new Intent(this, MainMenu.class));
+    }
+
+    private void CreateUser(final String email, final String password, final String name) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                progressBar.setVisibility(View.GONE);
+                if(task.isSuccessful()) {
+                    AuthUser(email, password);
+                    AddUserToDatabase(name, email);
+                }
+
+                else {
+                    Toast.makeText(getApplicationContext(), "An error occurred - email may be in use", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 
 
 }
