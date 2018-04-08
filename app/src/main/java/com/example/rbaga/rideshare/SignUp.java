@@ -137,7 +137,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-
     }
 
     private void AuthUser(String email, String password) {
@@ -163,7 +162,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void AddUserToDatabase(String username, String email) {
-
 
     }
 
