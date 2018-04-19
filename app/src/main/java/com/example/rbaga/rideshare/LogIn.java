@@ -68,7 +68,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         if (!validateLogIn()) {
             return;
         }
-        //...
+        //
         //start sign in
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -93,7 +93,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
     }
-
+    //.
     public boolean validateLogIn() {
         boolean valid = true;
 
