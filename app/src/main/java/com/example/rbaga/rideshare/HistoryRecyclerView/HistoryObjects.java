@@ -5,7 +5,7 @@ public class HistoryObjects {
         private String rideId;
         private String time;
 
-        public HistoryObject(String rideId, String time){
+        public HistoryObjects(String rideId, String time){
             this.rideId = rideId;
             this.time = time;
         }
@@ -19,6 +19,5 @@ public class HistoryObjects {
     public void setTime(String time) {
         this.time = time;
     }
-//
 
 }
