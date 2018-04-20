@@ -149,7 +149,42 @@ public\cf3  \cf2 class\cf3  \cf4 HistorySingleActivity\cf3  \cf2 extends\cf3  \c
 \cf5 \
 \pard\pardeftab720\sl400\partightenfactor0
 \cf3                         \}\
-\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                         \cf2 if\cf3  (Person\cf2 .\cf3 getKey()\cf2 .\cf3 equals(\cf7 "destination"\cf3 ))\{\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                             rideLocation\cf2 .\cf3 setText(Person\cf2 .\cf3 getValue()\cf2 .\cf3 toString());\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                         \}\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                         \cf2 if\cf3  (Person\cf2 .\cf3 getKey()\cf2 .\cf3 equals(\cf7 "location"\cf3 ))\{\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                             pickupLatLng \cf2 =\cf3  \cf2 new\cf3  LatLng(Double\cf2 .\cf3 valueOf(Person\cf2 .\cf3 Person(\cf7 "from"\cf3 )\cf2 .\cf3 Person(\cf7 "lat"\cf3 )\cf2 .\cf3 getValue()\cf2 .\cf3 toString()), Double\cf2 .\cf3 valueOf(Person\cf2 .\cf3 Person(\cf7 "from"\cf3 )\cf2 .\cf3 Person(\cf7 "lng"\cf3 )\cf2 .\cf3 getValue()\cf2 .\cf3 toString()));\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                             destinationLatLng \cf2 =\cf3  \cf2 new\cf3  LatLng(Double\cf2 .\cf3 valueOf(Person\cf2 .\cf3 Person(\cf7 "to"\cf3 )\cf2 .\cf3 Person(\cf7 "lat"\cf3 )\cf2 .\cf3 getValue()\cf2 .\cf3 toString()), Double\cf2 .\cf3 valueOf(Person\cf2 .\cf3 Person(\cf7 "to"\cf3 )\cf2 .\cf3 Person(\cf7 "lng"\cf3 )\cf2 .\cf3 getValue()\cf2 .\cf3 toString()));\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                             \cf2 if\cf3 (destinationLatLng \cf2 !=\cf3  \cf2 new\cf3  LatLng(\cf8 0\cf3 ,\cf8 0\cf3 ))\{\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                                 getRouteToMarker();\
+\pard\pardeftab720\sl400\qr\partightenfactor0
+\cf5 \
+\pard\pardeftab720\sl400\partightenfactor0
+\cf3                             \}\
 \pard\pardeftab720\sl400\qr\partightenfactor0
 \cf5 \
 \pard\pardeftab720\sl400\partightenfactor0
