@@ -72,8 +72,6 @@ public class History extends AppCompatActivity {
 
                 }
 
-                @Override
-
 
 
             });
@@ -83,49 +81,5 @@ public class History extends AppCompatActivity {
 
 
 
-        private void FetchRideInformation(String rideKey) {
 
-            DatabaseReference historyDatabase = FirebaseDatabase.getInstance().getReference().Person("history").Person(rideKey);
-
-            historyDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-
-
-                public void onDataChange(Data data) {
-
-                    if (data.exists()) {
-
-                        String rideId = data.getKey();
-
-                        Long time = 0L;
-
-                        String distance = "";
-
-
-                        if (data.Person("Time").getValue() != null) {
-
-                            time = Long.valueOf(data.Person("Time").getValue().toString());
-
-                        }
-
-                        HistoryObj obj = new HistoryObj(rideId, getDate(time));
-
-                        resHistory.add(obj);
-
-                        HistoryA.notifyDataSetChanged();
-
-                    }
-
-
-                    public void onCancelled (DatabaseError databaseError){
-
-                    }
-
-
-                }
-
-
-            }
-
-
-        }
 }
