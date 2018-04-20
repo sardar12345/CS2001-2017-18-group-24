@@ -19,6 +19,6 @@ public class HistoryObjects {
     public void setTime(String time) {
         this.time = time;
     }
-//
+
 
 }
